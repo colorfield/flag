@@ -231,8 +231,14 @@ function flag_form_save(EntityInterface $entity, $values) {
   foreach ($flags as $flag) {
     // Get the flag_id from the Flag.
     $flag_id = $flag->id();
+
+    // If the flag_id is not part of the form values, no need to do anything.
+    if (!isset($values[$flag_id])) {
+      continue;
+    }
+
     // Get the form flag value.
-    $value = isset($values[$flag_id]) ? $values[$flag_id] : FALSE;
+    $value = $values[$flag_id];
 
     // Determine if the flagging exists.
     $flagging_exists = in_array($flag_id, $flagging_ids);
