@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\flag\FunctionalJavascript;
 
-use Drupal\FunctionalJavascriptTests\JavascriptTestBase;
+use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 
 /**
  * Browser tests for the flag.twig.count service.
@@ -11,7 +11,7 @@ use Drupal\FunctionalJavascriptTests\JavascriptTestBase;
  *
  * @group flag
  */
-class FlagCountExtensionTest extends JavascriptTestBase {
+class FlagCountExtensionTest extends WebDriverTestBase {
 
   /**
    * Modules to enable.
@@ -76,7 +76,7 @@ class FlagCountExtensionTest extends JavascriptTestBase {
 
     // Check the view is shown correctly.
     $this->drupalGet('bookmarks');
-    $this->assertText($article->getTitle());
+    $assert_session->pageTextContains($article->getTitle());
   }
 
 }
