@@ -29,7 +29,7 @@ flag.flag.*:
       type: label
       label: 'Flag link description text'
     flag_message:
-      type: string
+      type: label
       label: 'Flag message'
     unflag_short:
       type: label
