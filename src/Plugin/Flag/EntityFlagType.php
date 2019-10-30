@@ -30,7 +30,7 @@ class EntityFlagType extends FlagTypeBase {
   use StringTranslationTrait;
 
   /**
-   * The entity manager.
+   * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */

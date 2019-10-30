@@ -43,7 +43,7 @@ class FlagService implements FlagServiceInterface {
    * @param AccountInterface $current_user
    *   The current user.
    * @param EntityTypeManagerInterface $entity_type_manager
-   *   The entity manager.
+   *   The entity type manager.
    * @param Drupal\Core\Session\SessionManagerInterface $session_manager
    *   The session manager.
    */

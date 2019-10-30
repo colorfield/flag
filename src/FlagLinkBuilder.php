@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 class FlagLinkBuilder implements FlagLinkBuilderInterface {
 
   /**
-   * The entity manager.
+   * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
@@ -26,13 +26,13 @@ class FlagLinkBuilder implements FlagLinkBuilderInterface {
   /**
    * Constructor.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
-   *   The entity manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param \Drupal\flag\FlagServiceInterface $flag_service
    *   The flag service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_manager, FlagServiceInterface $flag_service) {
-    $this->entityTypeManager = $entity_manager;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, FlagServiceInterface $flag_service) {
+    $this->entityTypeManager = $entity_type_manager;
     $this->flagService = $flag_service;
   }
 
