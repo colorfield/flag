@@ -2,9 +2,8 @@
 
 namespace Drupal\Tests\flag\FunctionalJavascript;
 
-use Drupal\flag\Tests\FlagCreateTrait;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\FunctionalJavascriptTests\DrupalSelenium2Driver;
+use Drupal\Tests\flag\Traits\FlagCreateTrait;
 use Drupal\Tests\flag\Traits\FlagPermissionsTrait;
 
 /**

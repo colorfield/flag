@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\flag\Tests;
+namespace Drupal\Tests\flag\Functional;
 
 /**
  * Tests the AJAX link type.

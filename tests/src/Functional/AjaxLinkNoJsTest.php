@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\flag\Functional;
 
-use Drupal\flag\Tests\FlagCreateTrait;
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\flag\Traits\FlagCreateTrait;
 use Drupal\Tests\flag\Traits\FlagPermissionsTrait;
 use Drupal\Core\Url;
 

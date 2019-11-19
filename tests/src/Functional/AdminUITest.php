@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\flag\Tests;
+namespace Drupal\Tests\flag\Functional;
 
 /**
  * Tests the Flag admin UI.
@@ -132,9 +132,8 @@ class AdminUITest extends FlagTestBase {
    */
   public function doFlagEdit() {
     $this->drupalGet('admin/structure/flags/manage/' . $this->flagId);
-
-    $elements = $this->xpath('//input[@id=:id]', [':id' => 'edit-global-0']);
-    $this->assertTrue(isset($elements[0]) && !empty($elements[0]['disabled']), 'The global form element is disabled when editing the flag.');
+    // Assert the global form element is disabled when editing the flag.
+    $this->assertSession()->elementAttributeExists('css', '#edit-global-0', 'disabled');
   }
 
   /**

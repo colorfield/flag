@@ -1,7 +1,8 @@
 <?php
 
-namespace Drupal\flag\Tests;
+namespace Drupal\Tests\flag\Functional;
 
+use Drupal\Core\Template\Attribute;
 use Drupal\node\Entity\Node;
 use Drupal\flag\FlagInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -206,6 +207,21 @@ class LinkOutputLocationTest extends FlagTestBase {
       ':id' => 'flag-' . $flag->id() . '-' . $entity->id(),
     ]);
     $this->assert(count($xpath) == ($exists ? 1 : 0), $message);
+  }
+
+  /**
+   * Asserts that a contextual link placeholder with the given id exists.
+   *
+   * @see \Drupal\contextual\Tests\ContextualDynamicContextTest::assertContextualLinkPlaceHolder()
+   *
+   * @param string $id
+   *   A contextual link id.
+   *
+   * @return bool
+   *   The result of the assertion.
+   */
+  protected function assertNoContextualLinkPlaceholder($id) {
+    return $this->assertSession()->responseNotContains('<div' . new Attribute(['data-contextual-id' => $id]) . '></div>');
   }
 
   // TODO: add assertions:

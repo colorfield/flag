@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\flag\Tests;
+namespace Drupal\Tests\flag\Traits;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Xss;
@@ -203,7 +203,8 @@ trait FlagCreateTrait {
     // Remove all angle brackets.
     $no_brackets = preg_replace('/[<>]/', '_', $no_space);
 
-    // Trim to the required length;
+    // Trim to the required length.
     return substr($no_brackets, 0, $length);
   }
+
 }

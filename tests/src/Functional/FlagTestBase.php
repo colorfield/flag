@@ -1,17 +1,17 @@
 <?php
 
-namespace Drupal\flag\Tests;
+namespace Drupal\Tests\flag\Functional;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\simpletest\WebTestBase;
 use Drupal\flag\Entity\Flag;
 use Drupal\Tests\flag\Traits\FlagPermissionsTrait;
-use Drupal\Core\Template\Attribute;
+use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\flag\Traits\FlagCreateTrait;
 
 /**
  * Provides common methods for Flag tests.
  */
-abstract class FlagTestBase extends WebTestBase {
+abstract class FlagTestBase extends BrowserTestBase {
 
   use FlagCreateTrait;
   use FlagPermissionsTrait;
@@ -111,7 +111,7 @@ abstract class FlagTestBase extends WebTestBase {
     ], $this->t('Continue'));
 
     // Set the link type.
-    $this->drupalPostAjaxForm(NULL, ['link_type' => $link_type], 'link_type');
+    $this->drupalPostForm(NULL, ['link_type' => $link_type], 'Create Flag');
 
     // Create an array of defaults.
     $default_edit = [
@@ -124,6 +124,7 @@ abstract class FlagTestBase extends WebTestBase {
       'flag_message' => $this->randomHTMLString(32),
       'unflag_message' => $this->randomHTMLString(32),
       'unflag_denied_text' => $this->randomHTMLString(),
+      'link_type' => $link_type,
     ];
 
     // Merge the default values with the edit array.
@@ -140,36 +141,6 @@ abstract class FlagTestBase extends WebTestBase {
 
     // Return the flag.
     return $flag;
-  }
-
-  /**
-   * Asserts that a contextual link placeholder with the given id exists.
-   *
-   * @see \Drupal\contextual\Tests\ContextualDynamicContextTest::assertContextualLinkPlaceHolder().
-   *
-   * @param string $id
-   *   A contextual link id.
-   *
-   * @return bool
-   *   The result of the assertion.
-   */
-  protected function assertContextualLinkPlaceHolder($id) {
-    return $this->assertRaw('<div' . new Attribute(['data-contextual-id' => $id]) . '></div>', format_string('Contextual link placeholder with id @id exists.', ['@id' => $id]));
-  }
-
-  /**
-   * Asserts that a contextual link placeholder with the given id exists.
-   *
-   * @see \Drupal\contextual\Tests\ContextualDynamicContextTest::assertContextualLinkPlaceHolder().
-   *
-   * @param string $id
-   *   A contextual link id.
-   *
-   * @return bool
-   *   The result of the assertion.
-   */
-  protected function assertNoContextualLinkPlaceholder($id) {
-    return $this->assertNoRaw('<div' . new Attribute(['data-contextual-id' => $id]) . '></div>', format_string('Contextual link placeholder with id @id exists.', ['@id' => $id]));
   }
 
 }

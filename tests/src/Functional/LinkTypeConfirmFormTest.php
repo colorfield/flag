@@ -1,13 +1,18 @@
 <?php
 
-namespace Drupal\flag\Tests;
+namespace Drupal\Tests\flag\Functional;
 
 /**
- * Tests the reload link type.
+ * Tests the confirm form link type.
  *
  * @group flag
  */
-class LinkTypeReloadTest extends FlagTestBase {
+class LinkTypeConfirmFormTest extends FlagTestBase {
+
+  protected $flagConfirmMessage = 'Flag test label 123?';
+  protected $unflagConfirmMessage = 'Unflag test label 123?';
+  protected $createButtonText = 'Create flagging 123?';
+  protected $deleteButtonText = 'Delete flagging 123?';
 
   /**
    * The flag object.
@@ -19,35 +24,39 @@ class LinkTypeReloadTest extends FlagTestBase {
   /**
    * Test the confirm form link type.
    */
-  public function testFlagReloadLink() {
-    // Create and log in our user.
-    $this->adminUser = $this->drupalCreateUser([
-      'administer flags',
-    ]);
-
+  public function testCreateConfirmFlag() {
     $this->drupalLogin($this->adminUser);
-
     $this->doCreateFlag();
-    $this->doFlagNode();
+    $this->doFlagUnflagNode();
   }
 
   /**
-   * Create a node type and a flag.
+   * Create a flag.
    */
   public function doCreateFlag() {
-    $this->flag = $this->createFlag('node', [$this->nodeType], 'reload');
+    $edit = [
+      'bundles' => [$this->nodeType],
+      'linkTypeConfig' => [
+        'flag_confirmation' => $this->flagConfirmMessage,
+        'unflag_confirmation' => $this->unflagConfirmMessage,
+        'flag_create_button' => $this->createButtonText,
+        'flag_delete_button' => $this->deleteButtonText,
+      ],
+      'link_type' => 'confirm',
+    ];
+    $this->flag = $this->createFlagFromArray($edit);
   }
 
   /**
-   * Flag a node.
+   * Create a node, flag it and unflag it.
    */
-  public function doFlagNode() {
+  public function doFlagUnflagNode() {
     $node = $this->drupalCreateNode(['type' => $this->nodeType]);
     $node_id = $node->id();
     $flag_id = $this->flag->id();
 
     // Grant the flag permissions to the authenticated role, so that both
-    // users have the same roles and share the render cache. ???? TODO
+    // users have the same roles and share the render cache.
     $this->grantFlagPermissions($this->flag);
 
     // Create and login a new user.
@@ -62,15 +71,15 @@ class LinkTypeReloadTest extends FlagTestBase {
       ':entity_id' => $node_id,
     ])->fetchField();
 
-    // Attempt to load the reload link URL without the token.
-    // We (probably) can't obtain the URL from the route rather than hardcoding
-    // it, as that would probably give us the token too.
-    $this->drupalGet("flag/flag/$flag_id/$node_id");
-    $this->assertResponse(403, "Access to the flag reload link is denied when no token is supplied.");
-
     // Click the flag link.
     $this->drupalGet('node/' . $node_id);
     $this->clickLink($this->flag->getShortText('flag'));
+
+    // Check if we have the confirm form message displayed.
+    $this->assertSession()->pageTextContains($this->flagConfirmMessage);
+
+    // Submit the confirm form.
+    $this->drupalPostForm('flag/confirm/flag/' . $flag_id . '/' . $node_id, [], $this->createButtonText);
 
     // Check that the node is flagged.
     $this->drupalGet('node/' . $node_id);
@@ -85,13 +94,14 @@ class LinkTypeReloadTest extends FlagTestBase {
     ])->fetchField();
     $this->assertEqual($flag_count_flagged, $flag_count_pre + 1, "The flag count was incremented.");
 
-    // Attempt to load the reload link URL without the token.
-    $this->drupalGet("flag/unflag/$flag_id/$node_id");
-    $this->assertResponse(403, "Access to the unflag reload link is denied when no token is supplied.");
-
     // Unflag the node.
-    $this->drupalGet('node/' . $node_id);
     $this->clickLink($this->flag->getShortText('unflag'));
+
+    // Check if we have the confirm form message displayed.
+    $this->assertSession()->pageTextContains($this->unflagConfirmMessage);
+
+    // Submit the confirm form.
+    $this->drupalPostForm(NULL, [], $this->deleteButtonText);
 
     // Check that the node is no longer flagged.
     $this->drupalGet('node/' . $node_id);

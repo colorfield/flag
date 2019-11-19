@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\flag\FunctionalJavascript;
 
-use Drupal\flag\Tests\FlagCreateTrait;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use Drupal\Tests\flag\Traits\FlagCreateTrait;
 
 /**
  * Javascript test for ajax links.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\flag\Tests;
+namespace Drupal\Tests\flag\Functional;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Xss;

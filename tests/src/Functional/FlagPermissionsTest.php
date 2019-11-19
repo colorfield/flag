@@ -3,7 +3,7 @@
 namespace Drupal\Tests\flag\Functional;
 
 use Drupal\Tests\BrowserTestBase;
-use Drupal\flag\Tests\FlagCreateTrait;
+use Drupal\Tests\flag\Traits\FlagCreateTrait;
 
 /**
  * Tests Flag module permissions.
