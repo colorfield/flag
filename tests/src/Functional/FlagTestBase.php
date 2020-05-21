@@ -18,6 +18,11 @@ abstract class FlagTestBase extends BrowserTestBase {
   use StringTranslationTrait;
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The flag service.
    *
    * @var \Drupal\flag\FlagServiceInterface

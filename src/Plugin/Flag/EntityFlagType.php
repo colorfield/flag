@@ -345,7 +345,7 @@ class EntityFlagType extends FlagTypeBase {
     $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
 
     // Only if the flaggable entities can be owned.
-    if ($entity_type->isSubclassOf(EntityOwnerInterface::class)) {
+    if ($entity_type->entityClassImplements(EntityOwnerInterface::class)) {
       return TRUE;
     }
 

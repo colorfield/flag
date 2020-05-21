@@ -14,6 +14,11 @@ class FlagPermissionsTest extends BrowserTestBase {
 
   use FlagCreateTrait;
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   public static $modules = ['flag', 'node', 'user'];
 
   /**

@@ -1,0 +1,10 @@
+{
+  "name": "drupal/flag",
+  "type": "drupal-module",
+  "description": "Provides a flag field type that attaches to a node.",
+  "homepage": "http://drupal.org/project/flag",
+  "license": "GPL-2.0+",
+  "require": {
+    "drupal/core": "~8.7"
+  }
+}

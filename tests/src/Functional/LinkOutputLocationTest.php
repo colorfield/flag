@@ -23,6 +23,11 @@ use Drupal\Core\Entity\EntityInterface;
 class LinkOutputLocationTest extends FlagTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * The flag.
    *
    * @var \Drupal\flag\FlagInterface
@@ -211,8 +216,6 @@ class LinkOutputLocationTest extends FlagTestBase {
 
   /**
    * Asserts that a contextual link placeholder with the given id exists.
-   *
-   * @see \Drupal\contextual\Tests\ContextualDynamicContextTest::assertContextualLinkPlaceHolder()
    *
    * @param string $id
    *   A contextual link id.

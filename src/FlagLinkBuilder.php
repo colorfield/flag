@@ -7,7 +7,17 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 /**
  * Provides a lazy builder for flag links.
  */
-class FlagLinkBuilder implements FlagLinkBuilderInterface {
+// @codingStandardsIgnoreStart
+// @todo remove this BC layer once support for Drupal 8.7 is sunsetted
+if (interface_exists('\Drupal\Core\Security\TrustedCallbackInterface')) {
+  interface TrustedCallbackInterface extends \Drupal\Core\Security\TrustedCallbackInterface{};
+  }
+  else {
+    interface TrustedCallbackInterface{}
+  }
+// @codingStandardsIgnoreStop
+
+class FlagLinkBuilder implements FlagLinkBuilderInterface, TrustedCallbackInterface {
 
   /**
    * The entity type manager.
@@ -34,6 +44,13 @@ class FlagLinkBuilder implements FlagLinkBuilderInterface {
   public function __construct(EntityTypeManagerInterface $entity_type_manager, FlagServiceInterface $flag_service) {
     $this->entityTypeManager = $entity_type_manager;
     $this->flagService = $flag_service;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function trustedCallbacks() {
+    return ['build'];
   }
 
   /**
