@@ -5,6 +5,6 @@
   "homepage": "http://drupal.org/project/flag",
   "license": "GPL-2.0+",
   "require": {
-    "drupal/core": "~8.7"
+    "drupal/core": "~8.7 || ~9.0"
   }
 }
